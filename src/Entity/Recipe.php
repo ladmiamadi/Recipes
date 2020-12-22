@@ -49,7 +49,7 @@ class Recipe
     /**
      * @ORM\Column(type="datetime")
      */
-    private $cretedAt;
+    private $created_at;
 
     /**
      * @ORM\Column(type="text")
@@ -91,7 +91,7 @@ class Recipe
         $this->ingredients = new ArrayCollection();
         $this->quantities = new ArrayCollection();
         
-            $this->createdAt=new \DateTime();
+            $this->created_at=new \DateTime();
         
     
     }
@@ -124,9 +124,7 @@ class Recipe
 
         return $this;
     }
-
-   
-     /**
+ /**
     * Get the value of imageFile
     *
     * @return  File
@@ -177,40 +175,16 @@ class Recipe
  
        return $this;
     }
-
-    public function getCretedAt(): ?\DateTimeInterface
-    {
-        return $this->cretedAt;
-    }
-
-    public function setCretedAt(\DateTimeInterface $cretedAt): self
-    {
-        $this->cretedAt = $cretedAt;
-
-        return $this;
-    }
-
-    public function getSteps(): ?string
-    {
-        return $this->steps;
-    }
-
-    public function setSteps(string $steps): self
-    {
-        $this->steps = $steps;
-
-        return $this;
-    }
-
+ 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+ 
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
+ 
         return $this;
     }
 
@@ -303,6 +277,26 @@ class Recipe
                 $quantity->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of steps
+     */ 
+    public function getSteps()
+    {
+        return $this->steps;
+    }
+
+    /**
+     * Set the value of steps
+     *
+     * @return  self
+     */ 
+    public function setSteps($steps)
+    {
+        $this->steps = $steps;
 
         return $this;
     }
