@@ -3,27 +3,30 @@
 namespace App\Form;
 
 use App\Entity\Ingredient;
+use App\Entity\Quantity;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class IngredientType extends AbstractType
+class QuantityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Ingredient'
+            ->add('amount')
+            ->add('symbol')
+            ->add('ingredient', IngredientType::class, [
+                'label' => false
             ])
-            //->add('recipe')
+           
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Ingredient::class,
+            'data_class' => Quantity::class,
         ]);
     }
 }

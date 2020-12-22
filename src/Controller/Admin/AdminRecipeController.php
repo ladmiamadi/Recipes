@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Entity\Quantity;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
@@ -41,7 +42,10 @@ class AdminRecipeController extends AbstractController
      */
     public function new(Request $request): Response
     {
+      
+
         $recipe= new Recipe();
+    
         $form=$this->createForm(RecipeType::class, $recipe);
 
         $form->handleRequest($request);

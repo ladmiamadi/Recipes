@@ -11,6 +11,56 @@
                  {{ form_row(form.author)}}
                 </div>
             </div>
+            <div class="row">
+                <div class="col-3">
+                    {{ form_row(form.imageFile) }}
+                
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-4">
+                        {{ form_row(form.prepTime) }}
+                    </div>
+                    <div class="col-4">
+                        {{ form_row(form.cookTime) }}
+                    </div>
+                    <div class="col-4">
+                        {{ form_row(form.servings) }}
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.steps) }}
+                
+                </div>
+            </div>
+            
+            
+            <div class="tags" data-prototype="{{ form_widget(form.quantities.vars.prototype)|e('html_attr') }}">
+                <ul>
+                {% for quantity in form.quantities %}
+                <li>
+                    <div class="row">
+                            <div class="col-4">
+                            
+                                {{ form_row(quantity.ingredient)}}
+                            
+                            </div>
+                            <div class="col-4">
+                                {{ form_row(quantity.amount)}}
+                            
+                            </div>
+                            <div class="col-4">
+                                {{ form_row(quantity.symbol)}}
+                            
+                            </div>
+                    </div>
+                </li>
+                {% endfor %}
+               </ul>
+
+            </div>
+             <button type="button" class="add_item_link btn btn-success" data-collection-holder-class="tags">Ajouter un ingredient</button>
             {{form_widget(form)}}
                 <div class="form-group mt-4">
                     <button class="btn btn-primary">Ajouter</button>
@@ -20,6 +70,7 @@
  
     </div>
 
-   
-
+  
  {% endblock %}
+
+ 
