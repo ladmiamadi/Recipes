@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block section %}
+    <div class="section container">
+        {{ form_start(form)}}
+            <div class="row">
+                <div class="col-6">
+                 {{ form_row(form.title)}}
+                </div>
+                <div class="col-6">
+                 {{ form_row(form.author)}}
+                </div>
+            </div>
+            {{form_widget(form)}}
+                <div class="form-group mt-4">
+                    <button class="btn btn-primary">Ajouter</button>
+                </div>
+
+        {{ form_end(form)}}
+ 
+    </div>
+
+   
+
+ {% endblock %}
