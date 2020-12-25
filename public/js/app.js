@@ -7,9 +7,11 @@ jQuery(document).ready(function() {
     // index when inserting a new item (e.g. 2)
     $tagsCollectionHolder.data('index', $tagsCollectionHolder.find('input').length);
 
+
     $('body').on('click', '.add_item_link', function(e) {
         var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
         // add a new tag form (see next code block)
+        
         addFormToCollection($collectionHolderClass);
     })
 });
@@ -19,6 +21,12 @@ function addFormToCollection($collectionHolderClass) {
 
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
+    console.log(prototype)
+    
+    //var tab=prototype.split('<div class="form-group">');
+    
+
+
 
     // get the new index
     var index = $collectionHolder.data('index');
@@ -35,9 +43,10 @@ function addFormToCollection($collectionHolderClass) {
 
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);
+    console.log($collectionHolder)
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
+    var $newFormLi = $('<div class="col-4"></div>').append(newForm);
     // Add the new form at the end of the list
-    $collectionHolder.append($newFormLi)
+     $collectionHolder.append($newFormLi)
 }

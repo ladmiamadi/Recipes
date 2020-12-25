@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails{% endblock %}
+{% block stylesheets %}
+             <link rel="stylesheet" href="../styles/style.css"> 
+{% endblock %}
+
+{% block section %}
+    <div class="section container p-5">
+          
+     <div class="details mx-auto p-5 shadow bg-white rounded"> 
+            <div class="row">
+                <div class="col text-center">
+                    <h1 class="font-weight-bold">{{ recipe.title }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                
+                </div>
+                <div class="col-6 text-right">
+                    <p>Réalisée par: {{ recipe.author }}</p>
+                </div>  
+            </div>
+                    
+        
+            <div class="row">
+                <div class="col text-center">
+                <img src="{{ vich_uploader_asset(recipe, 'imageFile') | imagine_filter('medium') }}" class="image_recipe rounded"/>
+                </div>
+            </div>
+        <hr> 
+            
+                <div class="row pt-2">
+                    <div class="col-4">
+                       <p>Temps de préparation: {{ recipe.prepTime }}</p>
+                    </div>
+                    <div class="col-4">
+                        <p>Temps de cuisson: {{ recipe.cookTime }}</p>
+                    </div>
+                    <div class="col-4">
+                       <p>Nombre de personnes: {{ recipe.servings }}</p>
+                    </div>
+                </div>
+       <hr> 
+
+            <div class="row">
+    
+                <div class="col-4">
+                    
+                    <h4 class="text-warning font-weight-bold">Liste des ingrédients</h4>
+                    <hr>
+                    
+                    {% for quantity in quantities %}
+                        <div class="row">
+                            <div class="col">
+                                {{ quantity.name }}
+                            
+                            </div>
+                            <div class="col">
+                                {{ quantity.amount }} {{ quantity.symbol }}
+                            
+                            </div>
+                        
+                        </div>
+                    {% endfor %}
+                
+                </div>
+                <div class="col border-left border-warning">
+                    
+                    <h4 class="text-warning font-weight-bold">Etapes de préparation </h4>
+                    <hr>
+                    {{ recipe.steps }}
+                
+                                
+                </div>
+            
+                
+          
+
+        
+        </div>  
+            
+    </div>
+
+  
+ {% endblock %}
+
+ 

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block section %}
-    <div class="section container">
+    <div class="section container p-5">
         {{ form_start(form)}}
-            <div class="row">
+            <div class="row font-weight-bold">
                 <div class="col-6">
                  {{ form_row(form.title)}}
                 </div>
@@ -11,13 +11,13 @@
                  {{ form_row(form.author)}}
                 </div>
             </div>
-            <div class="row">
+            <div class="row font-weight-bold">
                 <div class="col-3">
                     {{ form_row(form.imageFile) }}
                 
                 </div>
             </div>
-                <div class="row">
+                <div class="row font-weight-bold">
                     <div class="col-4">
                         {{ form_row(form.prepTime) }}
                     </div>
@@ -28,7 +28,7 @@
                         {{ form_row(form.servings) }}
                     </div>
                 </div>
-            <div class="row">
+            <div class="row font-weight-bold">
                 <div class="col">
                     {{ form_row(form.steps) }}
                 
@@ -36,11 +36,11 @@
             </div>
             
             
-            <div class="tags" data-prototype="{{ form_widget(form.quantities.vars.prototype)|e('html_attr') }}">
-                <ul>
+            <div class="tags" data-prototype="<div class='row'>{{ form_widget(form.quantities.vars.prototype)|e('html_attr') }}</div>">
+                
                 {% for quantity in form.quantities %}
-                <li>
-                    <div class="row">
+            
+                    <div class="row font-weight-bold ingredients">
                             <div class="col-4">
                             
                                 {{ form_row(quantity.ingredient)}}
@@ -55,18 +55,18 @@
                             
                             </div>
                     </div>
-                </li>
+                
                 {% endfor %}
-               </ul>
+               
 
             </div>
-             <button type="button" class="add_item_link btn btn-success" data-collection-holder-class="tags">Ajouter un ingredient</button>
+             <button type="button" class="add_item_link btn btn-primary" data-collection-holder-class="tags">Ajouter un ingredient</button>
             {{form_widget(form)}}
-                <div class="form-group mt-4">
-                    <button class="btn btn-primary">Ajouter</button>
+                <div class="form-group mt-4 text-center">
+                    <button class="btn btn-success">Valider</button>
                 </div>
 
-        {{ form_end(form)}}
+        {{ form_end(form, {'render_rest': false})}}
  
     </div>
 

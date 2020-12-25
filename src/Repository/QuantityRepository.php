@@ -47,4 +47,24 @@ class QuantityRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findOneByIdJoinedToIngredient($recipeId)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p.name, c.amount, c.symbol
+            FROM App\Entity\Ingredient p
+            INNER JOIN p.quantities c
+            WHERE c.recipe = :id'
+            
+        )->setParameter('id', $recipeId);
+        
+
+        return $query->getResult();
+    }
 }
+  //  SELECT ingredient.name, quantity.amount, quantity.symbol
+//FROM quantity
+//INNER JOIN ingredient ON quantity.ingredient_id=ingredient.id
+//WHERE quantity.recipe_id=1

@@ -49,6 +49,7 @@ class RecipeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Recipe::class,
+            'translation_domain'=>'forms'
         ]);
     }
 }

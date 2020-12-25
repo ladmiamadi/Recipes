@@ -27,6 +27,7 @@ class QuantityType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Quantity::class,
+            'translation_domain'=>'forms'
         ]);
     }
 }

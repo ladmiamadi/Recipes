@@ -24,6 +24,7 @@ class IngredientType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Ingredient::class,
+            'translation_domain'=>'forms'
         ]);
     }
 }
