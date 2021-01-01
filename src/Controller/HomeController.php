@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\RecipeSearch;
 use App\Form\RecipeSearchType;
+use App\Repository\RatingRepository;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,18 +21,21 @@ class HomeController extends AbstractController
      * @param  RecipeRepository $repository
      * @return Response
      */
-    public function index(RecipeRepository $repository, Request $request): Response
+    public function index(RecipeRepository $repository, Request $request, RatingRepository $rep): Response
     {
+        $vote = $rep->findAll();
+
         $search = new RecipeSearch();
-        $form= $this->createForm(RecipeSearchType::class, $search);
+        $form = $this->createForm(RecipeSearchType::class, $search);
         $form->handleRequest($request);
 
-       $recipes= $repository->findAllRecipes($search);
-     
+        $recipes = $repository->findAllRecipes($search);
+
 
         return $this->render('home/index.html.twig', [
-            'recipes'=>$recipes,
-            'formsearch'=> $form->createView()
+            'recipes' => $recipes,
+            'formsearch' => $form->createView(),
+            'vote' => $vote
         ]);
     }
 }

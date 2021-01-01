@@ -14,8 +14,9 @@
                     <h1 class="font-weight-bold">{{ recipe.title }}</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
+            <div class="row mb-3">
+                <div class="col-6 text-left">
+                {{ note.note| rating}}
                 
                 </div>
                 <div class="col-6 text-right">
@@ -79,7 +80,31 @@
           
 
         
-        </div>  
+        </div> 
+        <hr>
+        <h2 class="text-center">Laisser un commentaire</h2>
+        <hr> 
+        {{ form_start(form)}}
+        {{form_row(form.handle)}}
+        {{ form_row(form.comment)}}
+                {% block beelab_recaptcha2_widget -%}
+                    <div class="g-recaptcha" data-sitekey="{{ "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" }}" data-size="compact"></div>
+                 {%- endblock %}
+        <div class="form-group text-center">
+            <button class="btn btn-primary">Poster votre commentaire</button>
+        </div>
+        {{ form_end(form)}} 
+        <hr>
+            {% for comment in comments %}
+            <div class="media border p-3">
+                <img src="../images/avatar.png" alt="pseudo" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                <div class="media-body">
+                    <h4 class="font-weight-bold">{{ comment.handle| upper }}<small><i> Posté le: {{ comment.createdAt| date('d/m/Y')}}</i></small></h4>
+                    <p>{{ comment.comment }}</p>
+                </div>
+            </div>
+            {% endfor %}
+      
             
     </div>
 

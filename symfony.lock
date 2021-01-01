@@ -1,4 +1,22 @@
 {
+    "beelab/recaptcha2-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "246da6d0e345e9ab6773dd2f46c8a138e2527ef6"
+        },
+        "files": [
+            "./config/packages/beelab_recaptcha2.yaml"
+        ]
+    },
+    "blackknight467/star-rating-bundle": {
+        "version": "v2.0.1"
+    },
+    "brokoskokoli/star-rating-bundle": {
+        "version": "v4.0.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
@@ -81,6 +99,21 @@
     "egulias/email-validator": {
         "version": "2.1.24"
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.0"
+    },
+    "google/recaptcha": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.1",
+            "ref": "d087df3e087f50da3955f2def05079380da5894b"
+        },
+        "files": [
+            "./config/packages/google_recaptcha.yaml"
+        ]
+    },
     "imagine/imagine": {
         "version": "1.2.4"
     },
@@ -114,9 +147,6 @@
     },
     "nikic/php-parser": {
         "version": "v4.10.4"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.10.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -541,9 +571,6 @@
         "files": [
             "./config/packages/vich_uploader.yaml"
         ]
-    },
-    "webimpress/safe-writer": {
-        "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.9.1"

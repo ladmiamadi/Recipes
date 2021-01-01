@@ -73,3 +73,10 @@ header h5{
 {
     border-radius: 25%;
 }
+.add_button
+{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    
+}

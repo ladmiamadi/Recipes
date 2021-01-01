@@ -25,12 +25,20 @@
             <div class="col-4 mt-3">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{{ path('recipe_show', {id: recipe.id}) }}">{{ recipe.title }}</a>
+                        <h5 class="card-title text-center">
+                       
+                            <a href="{{ path('recipe_show', {id: recipe.id}) }}" class="text-decoration-none">{{ recipe.title }}</a>
                         </h5>               
                             <div class="card-image">
                                 <img src="{{ vich_uploader_asset(recipe, 'imageFile') | imagine_filter('thumb') }}" class="card-img-top"/>
-                            </div>                       
+                            </div> 
+                            <div class="text-center">
+                                 {% for v in vote if v.recipe.id == recipe.id %}
+                                       {{ v.note|rating  }}
+                                {% endfor %}
+                              
+                            
+                            </div>                      
                     </div>                        
                 </div>
             </div>                   

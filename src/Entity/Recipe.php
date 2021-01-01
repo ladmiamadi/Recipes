@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
  * @Vich\Uploadable
@@ -88,14 +89,29 @@ class Recipe
      */
     private $quantities;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="recipe")
+     */
+    private $rating;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="recipe")
+     */
+    private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $category;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
         $this->quantities = new ArrayCollection();
-        
-            $this->created_at=new \DateTime();
-        
-    
+
+        $this->created_at = new \DateTime();
+        $this->rating = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,67 +142,67 @@ class Recipe
 
         return $this;
     }
- /**
-    * Get the value of imageFile
-    *
-    * @return  File
-    */ 
+    /**
+     * Get the value of imageFile
+     *
+     * @return  File
+     */
     public function getImageFile()
     {
-       return $this->imageFile;
+        return $this->imageFile;
     }
- 
+
     /**
      * Set the value of imageFile
      *
      * @param  File  $imageFile
      *
      * @return  self
-     */ 
+     */
     public function setImageFile($imageFile)
     {
-       $this->imageFile = $imageFile;
-       if ($this->imageFile instanceof UploadedFile) {
-        
-         $this->updatedAt = new \DateTime('now');
-     }
- 
-       return $this;
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
     }
- 
+
     /**
      * Get the value of fileName
      *
      * @return  string
-     */ 
+     */
     public function getFileName()
     {
-       return $this->fileName;
+        return $this->fileName;
     }
- 
+
     /**
      * Set the value of fileName
      *
      * @param  string  $fileName
      *
      * @return  self
-     */ 
+     */
     public function setFileName($fileName)
     {
-       $this->fileName = $fileName;
- 
-       return $this;
+        $this->fileName = $fileName;
+
+        return $this;
     }
- 
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
- 
+
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
- 
+
         return $this;
     }
 
@@ -285,7 +301,7 @@ class Recipe
 
     /**
      * Get the value of steps
-     */ 
+     */
     public function getSteps()
     {
         return $this->steps;
@@ -295,10 +311,96 @@ class Recipe
      * Set the value of steps
      *
      * @return  self
-     */ 
+     */
     public function setSteps($steps)
     {
         $this->steps = $steps;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRating(): Collection
+    {
+        return $this->rating;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->rating->contains($rating)) {
+            $this->rating[] = $rating;
+            $rating->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->rating->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getRecipe() === $this) {
+                $rating->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getRecipe() === $this) {
+                $comment->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Set the value of rating
+     *
+     * @return  self
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
 
         return $this;
     }

@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Comments;
+use App\Entity\Rating;
 use App\Entity\Recipe;
+use App\Form\CommentsType;
 use App\Form\Recipe1Type;
+use App\Repository\CommentsRepository;
 use App\Repository\QuantityRepository;
+use App\Repository\RatingRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\Repository\RepositoryFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,18 +27,20 @@ class RecipeController extends AbstractController
      */
     public function index(RecipeRepository $recipeRepository): Response
     {
+
         return $this->render('recipe/index.html.twig', [
-            'recipes' => $recipeRepository->findAll(),
+            'recipes' => $recipeRepository->findAll()
         ]);
     }
 
     /**
      * @Route("/new", name="recipe_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Rating $rating): Response
     {
         $recipe = new Recipe();
-        $form = $this->createForm(Recipe1Type::class, $recipe);
+        $recipe->setRating(0);
+        $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,15 +58,35 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="recipe_show", methods={"GET"})
+     * @Route("/{id}", name="recipe_show", methods={"GET","POST"})
      */
-    public function show(Recipe $recipe, QuantityRepository $repository): Response
+    public function show(Recipe $recipe, QuantityRepository $repository, Request $request, CommentsRepository $rep, Rating $note, RatingRepository $repNote): Response
     {
-       $quantities= $repository->findOneByIdJoinedToIngredient($recipe->getId());          
-                                
-        dump($quantities);
+        $quantities = $repository->findOneByIdJoinedToIngredient($recipe->getId());
+
+
+
+        $comment = new Comments();
+
+        $comments = $rep->findById($recipe->getId());
+        $note = $repNote->findOneByRecipe($recipe->getId());
+
+
+        $comment->setRecipe($recipe);
+        $form = $this->createForm(CommentsType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            $this->addFlash('sucess', 'votre commentaire a été posté avec succées');
+            return $this->redirectToRoute('recipe_show', [
+                'recipe' => $recipe, 'quantities' => $quantities, 'form' => $form->createView(), 'id' => $recipe->getId(), 'note' => $note->getNote()
+            ]);
+        }
         return $this->render('admin/show.html.twig', [
-            'recipe' => $recipe, 'quantities'=>$quantities
+            'recipe' => $recipe, 'quantities' => $quantities, 'note' => $note, 'form' => $form->createView(), 'comments' => $comments
         ]);
     }
 
@@ -88,7 +115,7 @@ class RecipeController extends AbstractController
      */
     public function delete(Request $request, Recipe $recipe): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$recipe->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($recipe);
             $entityManager->flush();
