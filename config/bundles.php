@@ -16,4 +16,6 @@ return [
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     Brokoskokoli\StarRatingBundle\StarRatingBundle::class => ['all' => true],
     Beelab\Recaptcha2Bundle\BeelabRecaptcha2Bundle::class => ['all' => true],
+    SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle::class => ['all' => true],
+    SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
 ];

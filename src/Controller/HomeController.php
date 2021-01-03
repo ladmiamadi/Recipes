@@ -41,7 +41,7 @@ class HomeController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{category}", name="category", methods={"GET"})
+     * @Route("/categorie/{category}", name="category", methods={"GET"})
      *
      */
     public function category(RecipeRepository $repository, RatingRepository $rep, Request $request, Recipe $reci): Response
