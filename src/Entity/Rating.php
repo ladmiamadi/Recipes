@@ -55,4 +55,12 @@ class Rating
 
         return $this;
     }
+    public function addRecipe(Recipe $recipe): self
+    {
+
+        $this->recipe[] = $recipe;
+
+
+        return $this;
+    }
 }

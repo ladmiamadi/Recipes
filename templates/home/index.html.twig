@@ -1,50 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 {% block section %}
-   {{form_start(formsearch)}}
-            <div class="row py-4 container top mx-auto">
-                <div class="col-3">
-                </div>
-                <div class="col-4">
-                    {{ form_row(formsearch.titleSearch)}}
-                </div>
-                <div class="col-2 searchInput">
-                    <button class="search ml-4">Rechercher</button>
-                </div>
-                 <div class="col-3">
-                </div>
-                 <hr class="w-50 mx-auto mt-3">
-            </div>
-        {{form_end(formsearch)}}
-        
+	{{form_start(formsearch)}}
+	<div class="row py-4 container top mx-auto">
+		<div class="col-3"></div>
+		<div class="col-4">
+			{{ form_row(formsearch.titleSearch)}}
+		</div>
+		<div class="col-2 searchInput">
+			<button class="search ml-4">Rechercher</button>
+		</div>
+		<div class="col-3"></div>
+		<hr class="w-50 mx-auto mt-3">
+	</div>
+	{{form_end(formsearch)}}
 
-<div class="container section">
-    <div class="row">
-        {% for recipe in recipes %}
-            <div class="col-4 mt-3">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                       
-                            <a href="{{ path('recipe_show', {id: recipe.id}) }}" class="text-decoration-none">{{ recipe.title }}</a>
-                        </h5>               
-                            <div class="card-image">
-                                <img src="{{ vich_uploader_asset(recipe, 'imageFile') | imagine_filter('thumb') }}" class="card-img-top"/>
-                            </div> 
-                            <div class="text-center">
-                                 {% for v in vote if v.recipe.id == recipe.id %}
-                                       {{ v.note|rating  }}
-                                {% endfor %}
-                              
-                            
-                            </div>                      
-                    </div>                        
-                </div>
-            </div>                   
-        {% endfor %}
-    </div>
-</div>
+
+	<div class="container section">
+		<div class="row">
+			{% for recipe in recipes %}
+				<div class="col-4 mt-3">
+					<div class="card mb-4">
+						<div class="card-body">
+							<h5 class="card-title text-center mb-2">
+
+								<a href="{{ path('recipe_show', {id: recipe.id}) }}" class="title-recipe">{{ recipe.title }}</a>
+							</h5>
+							<div class="card-image my-3">
+								<img src="{{ vich_uploader_asset(recipe, 'imageFile') | imagine_filter('thumb') }}" class="card-img-top img-recipe"/>
+							</div>
+							<div class="text-center">
+
+								{% for v in vote if v.recipe == recipe.id %}
+									{{ v.note|rating  }}
+								{% else %}
+									{{ 0| rating}}
+								{% endfor %}
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 
 
 {% endblock %}

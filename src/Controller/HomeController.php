@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Recipe;
 use App\Entity\RecipeSearch;
 use App\Form\RecipeSearchType;
 use App\Repository\RatingRepository;
@@ -23,13 +24,34 @@ class HomeController extends AbstractController
      */
     public function index(RecipeRepository $repository, Request $request, RatingRepository $rep): Response
     {
-        $vote = $rep->findAll();
+        $vote = $rep->findAvgRating();
+
 
         $search = new RecipeSearch();
         $form = $this->createForm(RecipeSearchType::class, $search);
         $form->handleRequest($request);
 
         $recipes = $repository->findAllRecipes($search);
+
+
+        return $this->render('home/index.html.twig', [
+            'recipes' => $recipes,
+            'formsearch' => $form->createView(),
+            'vote' => $vote
+        ]);
+    }
+    /**
+     * @Route("/{category}", name="category", methods={"GET"})
+     *
+     */
+    public function category(RecipeRepository $repository, RatingRepository $rep, Request $request, Recipe $reci): Response
+    {
+        $vote = $rep->findAvgRating();
+        $search = new RecipeSearch();
+        $form = $this->createForm(RecipeSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $recipes = $repository->findByCategory($reci->getCategory());
 
 
         return $this->render('home/index.html.twig', [

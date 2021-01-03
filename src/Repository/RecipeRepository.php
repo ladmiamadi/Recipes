@@ -36,6 +36,16 @@ class RecipeRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByCategory($value)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.category = :val')
+            ->setParameter('val', $value)
+            ->orderBy('r.id', 'ASC')
+
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Recipe
@@ -48,7 +58,7 @@ class RecipeRepository extends ServiceEntityRepository
         ;
     }
     */
-       
+
     /**
      * findAllRecipes
      *
@@ -57,19 +67,13 @@ class RecipeRepository extends ServiceEntityRepository
      */
     public function findAllRecipes(RecipeSearch $search)
     {
-        $query=$this->createQueryBuilder('p');
-        
-            if($search->getTitleSearch())
-            {
-                $query= $query   
-                       ->andWhere('p.title LIKE :title')
-                       ->setParameter('title', '%'.$search->getTitleSearch().'%');
-                        
-                            
-           }   
-           return $query->getQuery()->execute();
-        
-                   
-    }    
-   
+        $query = $this->createQueryBuilder('p');
+
+        if ($search->getTitleSearch()) {
+            $query = $query
+                ->andWhere('p.title LIKE :title')
+                ->setParameter('title', '%' . $search->getTitleSearch() . '%');
+        }
+        return $query->getQuery()->execute();
+    }
 }

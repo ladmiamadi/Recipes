@@ -116,12 +116,46 @@ jQuery(document).ready(function () {
 
 
 
+    $(".my-rating").starRating({
+        starSize: 25,
+        ratedColors: ['#333333'],
+        callback: function (currentRating, $el) { // make a server call here
+            var $id = $('.recipe_id').html();
+            $id = parseInt($id);
+
+
+
+            $.ajax({
+                url: '/rating/new/ajax',
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                data: {
+                    "vote": currentRating,
+                    "recipe": $id
+                },
+                async: true,
+                success: function (data) {
+                    console.log(data.message)
+
+
+                },
+
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed')
+
+                }
+
+            })
+        }
+    });
+    /////////////////////////////////////////////
+
+
+
 })
-    //$('#exampleModal').on('show.bs.modal', function (event) {
-    //  var button = $(event.relatedTarget) // Button that triggered the modal
-    //  var recipient = button.data('whatever') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
 
 
 

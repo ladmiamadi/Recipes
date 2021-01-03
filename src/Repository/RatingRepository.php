@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Rating;
+use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -36,15 +38,42 @@ class RatingRepository extends ServiceEntityRepository
     }
     */
 
-    
-    public function findOneByRecipe($value): ?Rating
+    // cette fonction retourne la liste des rating avec une note moyenne pour chaque recipe
+    public function findAvgRating()
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.recipe = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('c')
+
+            ->select('AVG(c.note) AS note')
+
+            ->innerJoin(
+                Recipe::class,    // Entity
+                'p',               // Alias
+                Join::WITH,        // Join type
+                'p.id = c.recipe' // Join columns
+            )
+            ->addSelect('p.id AS recipe')
+
+            ->groupBy('c.recipe')
+
+
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    
+    // cette fonction retourne une note moyenne de la recipe ayant comme id $value
+    public function findOneByRecipe($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('AVG(c.note) AS note')
+
+            ->Where('c.recipe = :val')
+
+
+            ->setParameter(':val', $value)
+
+
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

@@ -35,11 +35,11 @@ class RecipeType extends AbstractType
             ->add('category', ChoiceType::class, [
                 'label' => 'Catégorie',
                 'choices' => [
-                    'Entrées' => 0,
-                    'Plats' => 1,
-                    'Desserts' => 2,
-                    'Sauces' => 3,
-                    'Boissons' => 4
+                    'Entrées' => 'Entrées',
+                    'Plats' => 'Plats',
+                    'Desserts' => 'Desserts',
+                    'Sauces' => 'Sauces',
+                    'Boissons' => 'Boissons'
                 ]
             ])
 
