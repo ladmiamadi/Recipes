@@ -89,7 +89,7 @@ class IngredientController extends AbstractController
                     200
                 );
             } else {
-                // Folder exists
+
                 return new JsonResponse(
                     array(
                         'status' => 'OK',

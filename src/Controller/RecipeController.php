@@ -3,14 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Comments;
-use App\Entity\Rating;
 use App\Entity\Recipe;
 use App\Form\CommentsType;
 
 use App\Form\RecipeType;
-use App\Repository\CommentsRepository;
-use App\Repository\QuantityRepository;
-use App\Repository\RatingRepository;
+
 use App\Repository\RecipeRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,22 +58,9 @@ class RecipeController extends AbstractController
     /**
      * @Route("/{id}", name="recipe_show", methods={"GET","POST"})
      */
-    public function show(Recipe $recipe, QuantityRepository $repository, Request $request, CommentsRepository $rep, RatingRepository $repNote): Response
+    public function show(Recipe $recipe, Request $request): Response
     {
-        $quantities = $repository->findOneByIdJoinedToIngredient($recipe->getId());
-
-
-
         $comment = new Comments();
-
-        $comments = $rep->findById($recipe->getId());
-        $note = $repNote->findOneByRecipe($recipe->getId());
-        dump($note);
-        if ($note == null) {
-            $note = 0;
-        } else {
-            $note = $note['note'];
-        }
 
 
         $comment->setRecipe($recipe);
@@ -89,13 +73,13 @@ class RecipeController extends AbstractController
             $entityManager->flush();
             $this->addFlash('sucess', 'votre commentaire a été posté avec succées');
             return $this->redirectToRoute('recipe_show', [
-                'id' => $recipe->getId(),
-                'recipe' => $recipe, 'quantities' => $quantities, 'form' => $form->createView(), 'id' => $recipe->getId()
+
+                'recipe' => $recipe, 'form' => $form->createView(), 'id' => $recipe->getId()
             ]);
         }
-        return $this->render('admin/show.html.twig', [
-            'recipe' => $recipe, 'quantities' => $quantities,  'form' => $form->createView(), 'comments' => $comments,
-            'note' => $note
+        return $this->render('home/show.html.twig', [
+            'recipe' => $recipe,  'form' => $form->createView()
+
         ]);
     }
 

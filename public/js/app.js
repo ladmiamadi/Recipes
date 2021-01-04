@@ -87,7 +87,7 @@ jQuery(document).ready(function () {
                 data: {
                     "task": form
                 },
-                async: true,
+
                 success: function (data) {
                     if (data.message === 1) {
                         window.location.reload(true);

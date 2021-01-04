@@ -18,7 +18,17 @@
 		</div>
 		<div class="row mb-3">
 			<div class="col-6 text-left">
-				{{ note| rating}}
+				{% set sum = 0 %}
+				{% set avg =0 %}
+				{% if recipe.rating | length != 0 %}
+
+					{% for vote in recipe.rating  %}
+						{% set sum = sum + vote.note %}
+					{% endfor %}
+					{% set avg = sum / recipe.rating | length %}
+				{% endif %}
+				{{ avg| rating }}
+
 
 			</div>
 			<div class="col-6 text-right">
@@ -59,15 +69,15 @@
 					<h4 class="steps font-weight-bold">Liste des ingrédients</h4>
 					<hr>
 
-					{% for quantity in quantities %}
+					{% for q in recipe.quantities %}
 						<div class="row">
 							<div class="col">
-								{{ quantity.name }}
+								{{ q.ingredient.name }}
 
 							</div>
 							<div class="col">
-								{{ quantity.amount }}
-								{{ quantity.symbol }}
+								{{ q.amount }}
+								{{ q.symbol }}
 
 							</div>
 
@@ -118,7 +128,7 @@
 	</div>
 
 	<hr>
-	{% for comment in comments %}
+	{% for comment in recipe.comments %}
 		<div class="media border p-3">
 			<img src="../images/avatar.png" alt="pseudo" class="mr-3 mt-3 rounded-circle" style="width:60px;">
 			<div class="media-body">

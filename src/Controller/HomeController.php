@@ -22,9 +22,9 @@ class HomeController extends AbstractController
      * @param  RecipeRepository $repository
      * @return Response
      */
-    public function index(RecipeRepository $repository, Request $request, RatingRepository $rep): Response
+    public function index(RecipeRepository $repository, Request $request): Response
     {
-        $vote = $rep->findAvgRating();
+
 
 
         $search = new RecipeSearch();
@@ -37,7 +37,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes,
             'formsearch' => $form->createView(),
-            'vote' => $vote
+
         ]);
     }
     /**
@@ -57,7 +57,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes,
             'formsearch' => $form->createView(),
-            'vote' => $vote
+
         ]);
     }
 }

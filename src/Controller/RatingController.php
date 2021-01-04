@@ -51,7 +51,6 @@ class RatingController extends AbstractController
             $vote = $request->request->get('vote');
             $id_recipe = $request->request->get('recipe');
 
-
             $entityManager = $this->getDoctrine()->getManager();
 
             $rating = new Rating();

@@ -38,11 +38,17 @@
 							</div>
 							<div class="text-center">
 
-								{% for v in vote if v.recipe == recipe.id %}
-									{{ v.note|rating  }}
-								{% else %}
-									{{ 0| rating}}
-								{% endfor %}
+
+								{% set sum = 0 %}
+								{% set avg =0 %}
+								{% if recipe.rating | length != 0 %}
+
+									{% for vote in recipe.rating  %}
+										{% set sum = sum + vote.note %}
+									{% endfor %}
+									{% set avg = sum / recipe.rating | length %}
+								{% endif %}
+								{{ avg| rating }}
 
 
 							</div>
@@ -52,6 +58,4 @@
 			{% endfor %}
 		</div>
 	</div>
-
-
 {% endblock %}
