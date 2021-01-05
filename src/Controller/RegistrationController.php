@@ -26,7 +26,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/login/register", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
     {
@@ -91,6 +91,6 @@ class RegistrationController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('user_profile');
     }
 }

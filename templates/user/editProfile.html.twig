@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+{% block title %}Editer mon profil
+{% endblock %}
+{% block section %}
+	{% include 'profile-base.html.twig' %}
+
+	<div class="container section py-5">
+		<div class="insert-form p-4 mx-auto w-75">
+			<div class="mb-3,text-center">
+				<h1 class="title">Modifer le profil de
+					{{ app.user.name }}
+					{{app.user.firstName}}</h1>
+
+
+			</div>
+			{{ form_start(form)}}
+			<div class="row mb-3">
+
+				<div class="col">{{ form_row(form.name) }}</div>
+
+			</div>
+			<div class="row mb-3">
+
+				<div class="col">{{ form_row(form.firstName) }}</div>
+
+
+			</div>
+			{{ form_widget(form)}}
+			{{ form_end(form)}}
+
+
+		</div>
+
+	</div>
+
+{% endblock %}

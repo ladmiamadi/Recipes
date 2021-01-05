@@ -1,31 +1,14 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Accueil
+{% extends "base.html.twig" %}
+{% block title %}Acceuil
 {% endblock %}
 {% block section %}
-	{{form_start(formsearch)}}
-	<div class="row py-4 container top mx-auto">
-		<div class="col-3"></div>
-		<div class="col-4">
-			{{ form_row(formsearch.titleSearch)}}
-		</div>
-		<div class="col-2 searchInput">
-			<button class="search ml-4">Rechercher</button>
-		</div>
-		<div class="col-3"></div>
-		<hr class="w-50 mx-auto mt-3">
-	</div>
-	{{form_end(formsearch)}}
-
+	{% include 'profile-base.html.twig' %}
 
 	<div class="container section pt-3">
 
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success mb-3" role="alert">{{ message }}</div>
-		{% endfor %}
 
 		<div class="row">
-			{% for recipe in recipes %}
+			{% for recipe in app.user.recipes %}
 				<div class="col-4 mt-3">
 					<div class="card mb-4">
 						<div class="card-body">
@@ -58,4 +41,5 @@
 			{% endfor %}
 		</div>
 	</div>
+
 {% endblock %}

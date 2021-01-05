@@ -29,10 +29,7 @@ class Recipe
      */
     private $title;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $author;
+
 
     /**
     
@@ -104,6 +101,14 @@ class Recipe
      */
     private $category;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recipes")
+     */
+    private $user;
+
+
+
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -131,17 +136,6 @@ class Recipe
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
     /**
      * Get the value of imageFile
      *
@@ -413,6 +407,18 @@ class Recipe
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

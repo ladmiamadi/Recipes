@@ -23,7 +23,7 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('author')
+
             ->add('imageFile', FileType::class)
 
 

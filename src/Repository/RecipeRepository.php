@@ -46,6 +46,17 @@ class RecipeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findRandomRecipes()
+    {
+
+        return $this->createQueryBuilder('r')
+            ->orderBy('RAND()')
+
+
+
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Recipe

@@ -24,16 +24,13 @@ class HomeController extends AbstractController
      */
     public function index(RecipeRepository $repository, Request $request): Response
     {
-
-
-
         $search = new RecipeSearch();
         $form = $this->createForm(RecipeSearchType::class, $search);
         $form->handleRequest($request);
 
-        $recipes = $repository->findAllRecipes($search);
+        // $recipes = $repository->findAllRecipes($search);
 
-
+        $recipes = $repository->findRandomRecipes();
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes,
             'formsearch' => $form->createView(),

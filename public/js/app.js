@@ -80,7 +80,7 @@ jQuery(document).ready(function () {
         else {
 
             $.ajax({
-                url: 'ingredient/new/ajax',
+                url: "/user/ingredient-ajax",
                 type: 'POST',
                 dataType: 'json',
                 async: true,

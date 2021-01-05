@@ -7,7 +7,18 @@
 {% endblock %}
 
 {% block section %}
+
+
 <div class="section container p-5">
+
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success mb-3" role="alert">{{ message }}</div>
+	{% endfor %}
+	{% if app.user %}
+
+		{% include 'profile-base.html.twig' %}
+	{% endif %}
+
 	<div class="recipe_id">{{ recipe.id }}</div>
 
 	<div class="details mx-auto p-5 shadow bg-white rounded">
@@ -33,7 +44,7 @@
 			</div>
 			<div class="col-6 text-right">
 				<p>Réalisée par:
-					{{ recipe.author }}</p>
+					{{ recipe.user.name }}</p>
 			</div>
 		</div>
 

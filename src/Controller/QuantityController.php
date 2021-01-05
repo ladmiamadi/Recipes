@@ -31,7 +31,7 @@ class QuantityController extends AbstractController
     public function new(Request $request): Response
     {
         $quantity = new Quantity();
-        
+
         $form = $this->createForm(QuantityType::class, $quantity);
         $form->handleRequest($request);
 
@@ -84,7 +84,7 @@ class QuantityController extends AbstractController
      */
     public function delete(Request $request, Quantity $quantity): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$quantity->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $quantity->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($quantity);
             $entityManager->flush();

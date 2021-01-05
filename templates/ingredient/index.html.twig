@@ -1,35 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ingredient index{% endblock %}
+{% block title %}Ingredient index
+{% endblock %}
 
-{% block body %}
-    <h1>Ingredient index</h1>
+{% block section %}
+	{% include 'profile-base.html.twig' %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ingredient in ingredients %}
-            <tr>
-                <td>{{ ingredient.id }}</td>
-                <td>{{ ingredient.name }}</td>
-                <td>
-                    <a href="{{ path('ingredient_show', {'id': ingredient.id}) }}">show</a>
-                    <a href="{{ path('ingredient_edit', {'id': ingredient.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="container section">
+		<h1 class="p-3 text-center font-weight-bold title">Liste des ingrédients</h1>
+		<div class="ml-4 p-5">
+			<a href="{{ path('ingredient_new') }}">Créer un nouvel ingrédient</a>
 
-    <a href="{{ path('ingredient_new') }}">Create new</a>
+
+		</div>
+
+		<div class="list-ingredient mx-auto p-5 w-75">
+			<table class="table">
+				<thead>
+					<tr>
+
+						<th>Name</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for ingredient in ingredients %}
+						<tr>
+
+							<td>{{ ingredient.name }}</td>
+							<td>
+								<a href="{{ path('ingredient_show', {'id': ingredient.id}) }}">show</a>
+								<a href="{{ path('ingredient_edit', {'id': ingredient.id}) }}">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="3">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+		</div>
+
+
+	</div>
+
 {% endblock %}

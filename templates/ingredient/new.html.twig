@@ -1,11 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ingredient{% endblock %}
+{% block title %}Nouvel ingrédient
+{% endblock %}
 
-{% block body %}
-    <h1>Create new Ingredient</h1>
 
-    {{ include('ingredient/_form.html.twig') }}
+{% block section %}
+	{% include 'profile-base.html.twig' %}
 
-    <a href="{{ path('ingredient_index') }}">back to list</a>
+
+	<div class="section container">
+
+		<h1 class="p-3 text-center font-weight-bold title">Créer un nouvel Ingrédient</h1>
+		<div class="w-75 mx-auto form-ingredient">
+			{{ include('ingredient/_form.html.twig') }}
+
+
+		</div>
+
+
+		<div class="link-list">
+			<a href="{{ path('ingredient_index') }}">Consulter la liste des ingrédients</a>
+
+
+		</div>
+
+
+	</div>
+
 {% endblock %}

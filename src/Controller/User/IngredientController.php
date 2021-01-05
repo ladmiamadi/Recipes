@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Entity\Ingredient;
 use App\Form\IngredientType;
@@ -11,13 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/ingredient")
- */
 class IngredientController extends AbstractController
 {
     /**
-     * @Route("/", name="ingredient_index", methods={"GET"})
+     * @Route("/user/ingredient", name="ingredient_index", methods={"GET"})
      */
     public function index(IngredientRepository $ingredientRepository): Response
     {
@@ -26,7 +23,7 @@ class IngredientController extends AbstractController
         ]);
     }
     /**
-     * @Route("/new/", name="ingredient_new", methods={"GET","POST"})
+     * @Route("user/new-ingredient", name="ingredient_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -38,8 +35,9 @@ class IngredientController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ingredient);
             $entityManager->flush();
+            $this->addFlash('sucess', 'votre ingrédient a été ajouté avec succées');
 
-            return $this->redirectToRoute('ingredient_index');
+            return $this->redirectToRoute('user_profile');
         }
 
 
@@ -50,7 +48,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * @Route("/new/ajax", name="ingredient_ajax", methods={"GET","POST"})
+     * @Route("/user/ingredient-ajax", name="ingredient_ajax", methods={"GET","POST"})
      */
     public function newAjax(Request $request, IngredientRepository $rep)
     {
@@ -112,7 +110,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="ingredient_show", methods={"GET"})
+     * @Route("/user/ingredient/{id}", name="ingredient_show", methods={"GET"})
      */
     public function show(Ingredient $ingredient): Response
     {
@@ -142,7 +140,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="ingredient_delete", methods={"DELETE"})
+     * @Route("/ingredient/{id}", name="ingredient_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Ingredient $ingredient): Response
     {
@@ -153,19 +151,5 @@ class IngredientController extends AbstractController
         }
 
         return $this->redirectToRoute('ingredient_index');
-    }
-
-
-    /** 
-     * @Route("/ajax", name="ajax_ingredient", methods={"POST"}) 
-     */
-    public function ajaxAction(Request $request)
-    {
-
-
-        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
-            return true;
-        }
-        return false;
     }
 }

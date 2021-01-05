@@ -1,42 +1,34 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Entity\Comments;
 use App\Entity\Recipe;
 use App\Form\CommentsType;
 
 use App\Form\RecipeType;
-
-use App\Repository\RecipeRepository;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/recipe")
- */
+
 class RecipeController extends AbstractController
 {
-    /**
-     * @Route("/", name="recipe_index", methods={"GET"})
-     */
-    public function index(RecipeRepository $recipeRepository): Response
-    {
-
-        return $this->render('recipe/index.html.twig', [
-            'recipes' => $recipeRepository->findAll()
-        ]);
-    }
 
     /**
-     * @Route("/new", name="recipe_new", methods={"GET","POST"})
+     * @Route("user/new-recipe", name="recipe_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $recipe = new Recipe();
+
+
+        $user = $this->getUser();
+
+        $recipe->setUser($user);
+
+
 
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
@@ -46,8 +38,9 @@ class RecipeController extends AbstractController
             $entityManager->persist($recipe);
             $entityManager->flush();
 
-            return $this->redirectToRoute('recipe_index');
+            return $this->redirectToRoute('user_profile');
         }
+
 
         return $this->render('recipe/new.html.twig', [
             'recipe' => $recipe,
@@ -56,7 +49,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="recipe_show", methods={"GET","POST"})
+     * @Route("/recipe/{id}", name="recipe_show", methods={"GET","POST"})
      */
     public function show(Recipe $recipe, Request $request): Response
     {
@@ -77,7 +70,7 @@ class RecipeController extends AbstractController
                 'recipe' => $recipe, 'form' => $form->createView(), 'id' => $recipe->getId()
             ]);
         }
-        return $this->render('home/show.html.twig', [
+        return $this->render('recipe/show.html.twig', [
             'recipe' => $recipe,  'form' => $form->createView()
 
         ]);
