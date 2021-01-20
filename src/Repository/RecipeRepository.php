@@ -78,7 +78,8 @@ class RecipeRepository extends ServiceEntityRepository
      */
     public function findAllRecipes(RecipeSearch $search)
     {
-        $query = $this->createQueryBuilder('p');
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('RAND()');
 
         if ($search->getTitleSearch()) {
             $query = $query

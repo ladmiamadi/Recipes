@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+
 use App\Entity\Comments;
 use App\Entity\Recipe;
 use App\Form\CommentsType;
@@ -16,11 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class RecipeController extends AbstractController
 {
 
+
     /**
      * @Route("user/new-recipe", name="recipe_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
+
         $recipe = new Recipe();
 
 
@@ -74,39 +77,5 @@ class RecipeController extends AbstractController
             'recipe' => $recipe,  'form' => $form->createView()
 
         ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="recipe_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Recipe $recipe): Response
-    {
-        $form = $this->createForm(RecipeType::class, $recipe);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('recipe_index');
-        }
-
-        return $this->render('recipe/edit.html.twig', [
-            'recipe' => $recipe,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="recipe_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Recipe $recipe): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($recipe);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('recipe_index');
     }
 }

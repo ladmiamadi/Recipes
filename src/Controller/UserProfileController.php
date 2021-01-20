@@ -16,21 +16,21 @@ class UserProfileController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('user/index.html.twig');
+        return $this->render('users/index.html.twig');
     }
     /**
      * @Route("/user/recipes", name="user_recipes")
      */
     public function myRecipes(): Response
     {
-        return $this->render('user/myRecipes.html.twig');
+        return $this->render('users/myRecipes.html.twig');
     }
     /**
      * @Route("/user/account", name="user_account")
      */
     public function myProfile(): Response
     {
-        return $this->render('user/myProfile.html.twig');
+        return $this->render('users/myProfile.html.twig');
     }
     /**
      * @Route("/user/edit", name="edit_profile")
@@ -50,7 +50,7 @@ class UserProfileController extends AbstractController
         }
 
 
-        return $this->render('user/editProfile.html.twig', [
+        return $this->render('users/editProfile.html.twig', [
 
             'form' => $form->createView(),
         ]);
@@ -75,6 +75,6 @@ class UserProfileController extends AbstractController
         }
 
 
-        return $this->render('user/editPassword.html.twig');
+        return $this->render('users/editPassword.html.twig');
     }
 }

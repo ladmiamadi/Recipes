@@ -14,6 +14,85 @@ jQuery(document).ready(function () {
         addFormToCollection($collectionHolderClass);
     })
 
+
+    $('.check').on('change', function (e) {
+
+
+        $id = $(this).attr('data-id')
+
+
+        $.ajax({
+            url: '/admin/activer-comment/' + $id,
+            type: 'POST',
+            dataType: 'json',
+            async: true,
+            data:
+                {},
+
+
+            success: function (data) {
+
+            },
+            error: function (data) {
+                alert('Failed')
+            }
+        })
+
+    })
+
+    $('.check-user').on('change', function (e) {
+
+
+        $id = $(this).attr('data-id')
+
+
+        $.ajax({
+            url: '/admin/activer-user/' + $id,
+            type: 'POST',
+            dataType: 'json',
+            async: true,
+            data:
+                {},
+
+
+            success: function (data) {
+
+            },
+            error: function (data) {
+                alert('Failed')
+
+            }
+
+        })
+
+    })
+    $('.check-recipe').on('change', function (e) {
+
+
+        $id = $(this).attr('data-id')
+
+
+        $.ajax({
+            url: '/admin/activer-recipe/' + $id,
+            type: 'POST',
+            dataType: 'json',
+            async: true,
+            data:
+                {},
+
+
+            success: function (data) {
+
+            },
+            error: function (data) {
+                alert('Failed')
+
+            }
+
+        })
+
+    })
+
 });
 function addFormToCollection($collectionHolderClass) {
     // Get the ul that holds the collection of tags
@@ -21,12 +100,6 @@ function addFormToCollection($collectionHolderClass) {
 
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
-
-
-    //var tab=prototype.split('<div class="form-group">');
-
-
-
 
     // get the new index
     var index = $collectionHolder.data('index');
@@ -108,10 +181,6 @@ jQuery(document).ready(function () {
             })
         }
 
-        //var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        // modal.find('.modal-body input').val(recipient)
-        // })
     })
 
 

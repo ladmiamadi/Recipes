@@ -14,7 +14,7 @@
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success mb-3" role="alert">{{ message }}</div>
 	{% endfor %}
-	{% if app.user %}
+	{% if app.user != null and app.user.roles == ["ROLE_USER"] %}
 
 		{% include 'profile-base.html.twig' %}
 	{% endif %}
@@ -140,18 +140,23 @@
 
 	<hr>
 	{% for comment in recipe.comments %}
-		<div class="media border p-3">
-			<img src="../images/avatar.png" alt="pseudo" class="mr-3 mt-3 rounded-circle" style="width:60px;">
-			<div class="media-body">
-				<h4 class="font-weight-bold">{{ comment.handle| upper }}<small>
-						<i>
-							Posté le:
-							{{ comment.createdAt| date('d/m/Y')}}</i>
-					</small>
-				</h4>
-				<p>{{ comment.comment }}</p>
+		{% if comment.isValidated %}
+			<div class="media border p-3">
+				<img src="../images/avatar.png" alt="pseudo" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+				<div class="media-body">
+					<h5 class="font-weight-bold">{{ comment.handle| upper }}<small>
+							<i>
+								Posté le:
+								{{ comment.createdAt| date('d/m/Y')}}</i>
+						</small>
+					</h5>
+					<p>{{ comment.comment }}</p>
+
+				</div>
 			</div>
-		</div>
+		{% endif %}
+
+
 	{% endfor %}
 
 

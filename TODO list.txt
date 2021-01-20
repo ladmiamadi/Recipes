@@ -1,9 +1,8 @@
-1. valider les commentaires par l'admin
+
 2. validation des formulaires (les test)
 3. gérer les ingrédients par nombre de personnes
-4. systéme de crud des recette
-5. améliorer les crud pour le reste des entités
+
 6. ajouter une image pour tous les ingrédients
-7. améliorer l'interface
+
 8. améliorer la performance des requetes
 9. la sécurité

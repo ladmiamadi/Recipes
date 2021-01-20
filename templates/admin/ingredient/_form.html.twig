@@ -1,0 +1,15 @@
+<div class="p-4 m-4 insert-form">
+
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	<div class="text-center">
+		<button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+	</div>
+
+	{{ form_end(form) }}
+
+	<div class="text-left p-3">
+
+		<a href="{{path('ingredient_home_admin')}}" class="boutton">Revenir à la liste</a>
+	</div>
+</div>

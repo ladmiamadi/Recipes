@@ -10,8 +10,14 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @apiResource(
+ *      collectionOperations={"get"},
+ *      itemOperations={"get"}
+ *  
+ * )
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
  * @Vich\Uploadable
  */
@@ -26,11 +32,9 @@ class Recipe
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\Regex("/^[A-Z][A-Za-z\é\è\ê\-\ ]+$/")
      */
     private $title;
-
-
-
     /**
     
      * 
@@ -45,10 +49,6 @@ class Recipe
      */
     private $fileName;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
 
     /**
      * @ORM\Column(type="text")
@@ -62,16 +62,23 @@ class Recipe
 
     /**
      * @ORM\Column(type="integer")
+     *  @Assert\Positive
      */
     private $prepTime;
 
     /**
      * @ORM\Column(type="integer")
+     *  @Assert\Positive
      */
     private $cookTime;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 20,
+     *      notInRangeMessage = "Nombre de personnes doit étre entre {{ min }} et {{ max }}",
+     * )
      */
     private $servings;
 
@@ -82,7 +89,7 @@ class Recipe
 
     /**
      *
-     * @ORM\OneToMany(targetEntity=Quantity::class, mappedBy="recipe", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Quantity::class, mappedBy="recipe", cascade={"persist", "remove"})
      */
     private $quantities;
 
@@ -106,6 +113,16 @@ class Recipe
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
 
 
 
@@ -113,11 +130,15 @@ class Recipe
     {
         $this->ingredients = new ArrayCollection();
         $this->quantities = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+        $this->isVerified = false;
 
-        $this->created_at = new \DateTime();
+
         $this->rating = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -419,6 +440,30 @@ class Recipe
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

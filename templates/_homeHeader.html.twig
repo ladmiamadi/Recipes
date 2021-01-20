@@ -44,7 +44,16 @@
 		{% if app.user %}
 			<div class="col-1"></div>
 			<div class="col-md-1 name mt-5 pt-2">
-				<a href="{{ path('user_profile')}}">{{ app.user.name }}</a>
+				{% if app.user.roles == ["ROLE_ADMIN", "ROLE_USER"] %}
+					<a href="{{ path('recipe_home_admin')}}">{{ app.user.name }}</a>
+
+
+				{% else %}
+
+
+					<a href="{{ path('user_profile')}}">{{ app.user.name }}</a>
+				{% endif %}
+
 			</div>
 
 
@@ -53,24 +62,27 @@
 			</div>
 
 		{% else %}
-			<div class="col-md-2"></div>
-			<div class="col-md-1 d-md-block">
+			<div class="col-1"></div>
+			<div class="col-md-1 name mt-5 pt-2"></div>
 
 
-				<a href="{{ path('app_login') }}"><img src="../images/SignIn.png" alt="Sign In" class="img-fluid"></a>
-			{% endif %}
-
-
-		</div>
-
-		<div class="row mx-auto">
-			<div class="col"></div>
-			<div class="d-sm-none d-md-block col-md-6 pt-0">
-				<h5>Vite une idée, trouvez votre recette !</h5>
+			<div class="col-md-1 d-md-block mt-5">
+				<a href="{{ path('app_login') }}"><img src="../images/Signin.png" alt="login" class="img-fluid"></a>
 			</div>
-			<div class="col"></div>
+
+		{% endif %}
 
 
+	</div>
+
+	<div class="row mx-auto">
+		<div class="col"></div>
+		<div class="d-sm-none d-md-block col-md-6 pt-0">
+			<h5>Vite une idée, trouvez votre recette !</h5>
 		</div>
+		<div class="col"></div>
 
-	</header>
+
+	</div>
+
+</header>

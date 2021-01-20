@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<div class="text-center m-4">
+	<button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+	{{ include('admin/user/_delete_form.html.twig') }}
+
+
+</div>
+
+{{ form_end(form) }}

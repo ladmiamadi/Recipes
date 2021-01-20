@@ -1,0 +1,60 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block content %}
+
+	<h2 class="title text-center p-3">Liste des commentaires</h1>
+
+
+	<div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+
+					<th>Commentaire</th>
+					<th>Crée le</th>
+					<th>Pseudo</th>
+					<th>Validé</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for comment in comments %}
+					<tr>
+
+
+						<td>
+							<a href="{{ path('comments_show_admin', {'id': comment.id}) }}">{{ comment.comment }}</a>
+						</td>
+
+						<td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ comment.handle }}</td>
+						<td>
+
+							<label class="form-switch mt-2">
+
+								<input class="check" type="checkbox" {{ (comment.isValidated)? 'checked': '' }} data-id={{comment.id}}/>
+								<span class="slider"></span>
+							</label>
+
+
+						</td>
+
+						<td>
+
+							<a href="{{ path('comments_show_admin', {'id': comment.id}) }}">Afficher</a>
+						</td>
+						<td>
+							{{ include('admin/comments/_delete_form.html.twig') }}
+
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">Pas d'élements trouvés</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</tbody>
+	</table>
+</div>{% endblock %}

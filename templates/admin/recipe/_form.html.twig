@@ -1,0 +1,120 @@
+<div class="p-4 m-4 insert-form">
+	{{ form_start(form)}}
+	<div class="row font-weight-bold">
+		<div class="col-6">
+			{{ form_row(form.title)}}
+		</div>
+
+	</div>
+	<div class="row font-weight-bold">
+		<div class="col-5">
+			{{ form_row(form.imageFile) }}
+
+		</div>
+		<div class="col-4">
+			{{ form_row(form.category)}}
+		</div>
+	</div>
+	<div class="row font-weight-bold">
+		<div class="col-4">
+			{{ form_row(form.prepTime) }}
+		</div>
+		<div class="col-4">
+			{{ form_row(form.cookTime) }}
+		</div>
+		<div class="col-4">
+			{{ form_row(form.servings) }}
+		</div>
+	</div>
+	<div class="row font-weight-bold">
+		<div class="col">
+			{{ form_row(form.steps) }}
+
+		</div>
+	</div>
+
+	<button type="button" class="btn btn-primary m-4 open-modal" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Insérer un ingrédient</button>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ajouter un nouvel ingrédient</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="name_ingredient">Ingrédient</label>
+						<input type="text" name='name_ingredient' id="task_form" class="form-control">
+					</div>
+
+				</div>
+
+				<div class="row" id="folder_exists_error" style="display: none;">
+					<div class="col col-xs-12">
+						<div class="alert alert-danger ingredient_exist m-3"></div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-primary add_ingredient">Ajouter</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="tags" data-prototype="{{ _self.information_prototype(form.quantities.vars.prototype)|e }}">
+
+
+		{% for quantity in form.quantities %}
+			{{ _self.information_prototype(quantity) }}
+		{% endfor %}
+
+		{% macro information_prototype(quantity) %}
+
+			<div class="row font-weight-bold">
+				<div class="col-1 mt-4 pr-0 text-right pt-2">
+					<a class="add_item_link" data-collection-holder-class="tags"><img src="../images/add.png" class="add_button"></a>
+
+				</div>
+				<div class="col-4">
+					{{ form_row(quantity.ingredient) }}
+
+				</div>
+				<div class="col-3">
+					{{ form_row(quantity.amount) }}
+
+				</div>
+				<div class="col-3">
+					{{ form_row(quantity.symbol) }}
+
+				</div>
+				<div class="col-1 mt-4 pl-0 text-left pt-2">
+					<a class="remove_item_link" data-collection-holder-class="tags"><img src="../images/remove.png" class="add_button"></a>
+
+				</div>
+
+
+			</div>
+
+		{% endmacro %}
+
+
+	</div>
+
+	{{form_widget(form)}}
+	<div class="form-group mt-4 text-center">
+		<button class="btn btn-success">Valider</button>
+
+	</div>
+
+	{{ form_end(form, {'render_rest': false})}}
+	<div class="text-left p-3">
+
+		<a href="{{path('recipe_home_admin')}}" class="boutton">Revenir à la liste</a>
+	</div>
+
+</div>

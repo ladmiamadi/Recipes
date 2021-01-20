@@ -28,9 +28,8 @@ class HomeController extends AbstractController
         $form = $this->createForm(RecipeSearchType::class, $search);
         $form->handleRequest($request);
 
-        // $recipes = $repository->findAllRecipes($search);
 
-        $recipes = $repository->findRandomRecipes();
+        $recipes = $repository->findAllRecipes($search);
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes,
             'formsearch' => $form->createView(),

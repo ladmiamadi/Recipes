@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class RecipeType extends AbstractType
 {
@@ -24,10 +25,16 @@ class RecipeType extends AbstractType
         $builder
             ->add('title')
 
-            ->add('imageFile', FileType::class)
+            ->add(
+                'imageFile',
+                FileType::class,
+                [
+                    'data_class' => null
+                ]
+            )
 
 
-            ->add('steps')
+            ->add('steps', CKEditorType::class)
 
             ->add('prepTime')
             ->add('cookTime')
@@ -55,6 +62,7 @@ class RecipeType extends AbstractType
 
 
             ]);
+
         //->add('ingredients', IngredientType::class, [
         //  'data_class' => null,
         //  'translation_domain' => 'forms'

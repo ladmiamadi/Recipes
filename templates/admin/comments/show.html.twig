@@ -1,0 +1,43 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Commentaires
+{% endblock %}
+
+{% block content %}
+	<h2 class="title  text-center p-3">Commentaire</h2>
+
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Recette</th>
+				<td>{{ comment.recipe.title }}</td>
+			</tr>
+			<tr>
+				<th>Commentaire</th>
+				<td>{{ comment.comment }}</td>
+			</tr>
+			<tr>
+				<th>Crée le</th>
+				<td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Pseudo</th>
+				<td>{{ comment.handle }}</td>
+			</tr>
+			<tr>
+				<th>Validation</th>
+				<td>{{ comment.isValidated ? 'Oui' : 'Non' }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('comments_home_admin') }}" class="boutton">Revenir à la liste</a>
+
+	<div class="p-4 m-3">
+		{{ include('admin/comments/_delete_form.html.twig') }}
+
+
+	</div>
+
+{% endblock %}

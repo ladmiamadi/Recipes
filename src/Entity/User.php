@@ -64,10 +64,6 @@ class User implements UserInterface
     }
 
 
-
-
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -210,5 +206,13 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * Get the value of isVerified
+     */
+    public function getIsVerified()
+    {
+        return $this->isVerified;
     }
 }

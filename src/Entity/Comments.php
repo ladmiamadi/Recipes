@@ -41,11 +41,11 @@ class Comments
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isValidated;
-    
+
     public function __construct()
     {
-        $this->createdAt= new \DateTime();
-        $this->isValidated=false;
+        $this->createdAt = new \DateTime();
+        $this->isValidated = false;
     }
 
     public function getId(): ?int
@@ -109,6 +109,18 @@ class Comments
     public function setIsValidated(?bool $isValidated): self
     {
         $this->isValidated = $isValidated;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

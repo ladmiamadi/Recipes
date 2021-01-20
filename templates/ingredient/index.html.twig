@@ -9,7 +9,7 @@
 	<div class="container section">
 		<h1 class="p-3 text-center font-weight-bold title">Liste des ingrédients</h1>
 		<div class="ml-4 p-5">
-			<a href="{{ path('ingredient_new') }}">Créer un nouvel ingrédient</a>
+			<a href="{{ path('ingredient_new') }}" class="boutton">Créer un nouvel ingrédient</a>
 
 
 		</div>
@@ -29,8 +29,8 @@
 
 							<td>{{ ingredient.name }}</td>
 							<td>
-								<a href="{{ path('ingredient_show', {'id': ingredient.id}) }}">show</a>
-								<a href="{{ path('ingredient_edit', {'id': ingredient.id}) }}">edit</a>
+
+								<a href="{{ path('ingredient_edit', {'id': ingredient.id}) }}" class="boutton">Editer</a>
 							</td>
 						</tr>
 					{% else %}

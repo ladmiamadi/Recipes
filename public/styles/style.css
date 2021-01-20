@@ -161,3 +161,18 @@ header h5{
     font-weight: bold;
     text-decoration: none;
 }
+.boutton, .boutton a
+{
+    background-color: rgba(0, 119, 255, 0.87);
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    
+}
+.boutton:hover
+{
+    text-decoration:none;
+    background-color: #F8961E;
+    color: #181818;
+}

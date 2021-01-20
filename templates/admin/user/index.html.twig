@@ -1,0 +1,59 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block content %}
+
+	<h2 class="title text-center p-3">Liste des utilisateurs</h1>
+
+	<div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+
+					<th>Email</th>
+					<th>Rôles</th>
+
+
+					<th>Validation</th>
+					<th>Prénom</th>
+					<th>Nom</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+
+						<td>{{ user.email }}</td>
+						<td>{{ user.roles ? user.roles| map((last, first) => "#{last}")|join(', ') }}</td>
+
+
+						<td>
+
+							<label class="form-switch mt-2">
+
+								<input class="check-user" type="checkbox" {{ (user.isVerified)? 'checked': '' }} data-id={{user.id}}/>
+								<span class="slider"></span>
+
+							</label>
+
+						</td>
+
+						<td>{{ user.name }}</td>
+						<td>{{ user.firstName }}</td>
+						<td>
+							<a href="{{ path('user_show_admin', {'id': user.id}) }}" class="boutton">Afficher</a>
+
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">Pas d'élements trouvés!</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+
+	</div>
+
+{% endblock %}

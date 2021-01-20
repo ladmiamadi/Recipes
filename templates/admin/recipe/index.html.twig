@@ -1,0 +1,66 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block content %}
+	<div class="p-3">
+		<h2 class="title text-center">Liste des recettes</h2>
+
+	</div>
+	<div class="text-right mb-4">
+		<a href="{{ path('recipe_new_admin')}}" class="boutton">Créer une recette</a>
+
+
+	</div>
+	<div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Image</th>
+					<th>Crée le</th>
+					<th>Vérifiée</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for recipe in recipes %}
+
+					<tr>
+						<td>{{recipe.title }}</td>
+						<td class="w-25"><img src="{{ vich_uploader_asset(recipe, 'imageFile') | imagine_filter('thumb') }}" class="w-25"/></td>
+
+
+						<td>{{ recipe.createdAt | date("m/d/Y")}}</td>
+
+						<td>
+							<label class="form-switch mt-2">
+
+								<input class="check-recipe" type="checkbox" {{ (recipe.isVerified)? 'checked': '' }} data-id={{recipe.id}}/>
+
+								<span class="slider"></span>
+							</label>
+
+
+						</td>
+						<td>
+							<a href="{{path('recipe_edit_admin', {id: recipe.id})}}" class="boutton">Editer</a>
+
+
+						</td>
+						<td>
+							{{ include('admin/recipe/_delete_form.html.twig') }}
+
+
+						</td>
+
+					</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+
+
+	</div>
+
+{% endblock %}

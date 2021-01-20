@@ -1,0 +1,48 @@
+{% extends 'admin/index.html.twig' %}
+
+
+{% block title %}Détails utilisateur
+{% endblock %}
+
+
+{% block content %}
+	<h2 class="text-center p-3 title">Utilisateur</h2>
+	<div class="p-3 mb-4">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ user.id }}</td>
+				</tr>
+				<tr>
+					<th>Email</th>
+					<td>{{ user.email }}</td>
+				</tr>
+				<tr>
+					<th>Roles</th>
+					<td>{{ user.roles ? user.roles|map((last, first) => "#{last}")|join(', ')}}</td>
+
+				</tr>
+
+				<tr>
+					<th>Validation</th>
+					<td>{{ user.isVerified ? 'Oui' : 'Non' }}</td>
+				</tr>
+				<tr>
+					<th>Prénom</th>
+					<td>{{ user.name }}</td>
+				</tr>
+				<tr>
+					<th>Nom</th>
+					<td>{{ user.firstName }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<a href="{{ path('user_index_admin') }}" class="boutton">Revenir à la liste</a>
+
+		<a href="{{ path('user_edit_admin', {'id': user.id}) }}" class="boutton">Editer</a>
+
+	</div>
+
+{% endblock %}

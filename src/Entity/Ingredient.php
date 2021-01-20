@@ -2,12 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientRepository;
+
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\IngredientRepository;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @apiResource(
+ *    normalizationContext={"groups"={"ingrédient:read"}},
+ *     denormalizationContext={"groups"={"ingrédient:write"}}
+ * )
  * @ORM\Entity(repositoryClass=IngredientRepository::class)
  */
 class Ingredient
@@ -21,16 +28,20 @@ class Ingredient
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"ingrédient:read", "ingrédient:write"})
      */
     private $name;
 
     /**
      * @ORM\ManyToMany(targetEntity=Recipe::class, inversedBy="ingredients")
+     * @Groups("ingrédient:read")
      */
     private $recipe;
 
     /**
      * @ORM\OneToMany(targetEntity=Quantity::class, mappedBy="ingredient")
+     *  @Groups("ingrédient:read")
      */
     private $quantities;
 

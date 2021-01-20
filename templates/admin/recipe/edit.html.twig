@@ -1,0 +1,81 @@
+{% extends 'admin/index.html.twig' %}
+
+
+{% block content %}
+	<h2 class="title p-3 text-center">Editer la recette</h2>
+	<div class="p-4 m-4 insert-form">
+		{{ form_start(form)}}
+		<div class="row font-weight-bold">
+			<div class="col-6">
+				{{ form_row(form.title)}}
+			</div>
+
+		</div>
+		<div class="row font-weight-bold">
+
+			<div class="col text-center">
+				<img src="{{ vich_uploader_asset(recipe, 'imageFile') | imagine_filter('thumb') }}" class="image_recipe rounded"/>
+			</div>
+
+
+		</div>
+		<div class="row">
+			<div class="col-4">
+				{{ form_row(form.category)}}
+			</div>
+		</div>
+		<div class="row font-weight-bold">
+			<div class="col-4">
+				{{ form_row(form.prepTime) }}
+			</div>
+			<div class="col-4">
+				{{ form_row(form.cookTime) }}
+			</div>
+			<div class="col-4">
+				{{ form_row(form.servings) }}
+			</div>
+		</div>
+		<div class="row font-weight-bold">
+			<div class="col">
+				{{ form_row(form.steps) }}
+
+			</div>
+		</div>
+
+
+		{% for quantity in recipe.quantities %}
+			<div class="row font-weight-bold">
+
+				<div class="col-4">
+					{{ quantity.ingredient.name }}
+
+				</div>
+				<div class="col-3">
+					{{ quantity.amount }}
+
+				</div>
+				<div class="col-3">
+					{{ quantity.symbol }}
+
+				</div>
+
+
+			</div>
+
+		{% endfor %}
+
+
+		<div class="form-group mt-4 text-center">
+			<button class="btn btn-success">Valider</button>
+
+		</div>
+
+		{{ form_end(form, {'render_rest': false})}}
+		<div class="text-left p-3">
+
+			<a href="{{path('recipe_home_admin')}}" class="boutton">Revenir à la liste</a>
+		</div>
+
+	</div>
+
+{% endblock %}
